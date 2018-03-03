@@ -1,0 +1,36 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.a",
+				"*.app",
+				"*.d",
+				"*.dll",
+				"*.dylib",
+				"*.exe",
+				"*.gch",
+				"*.la",
+				"*.lai",
+				"*.lib",
+				"*.lo",
+				"*.mod",
+				"*.o",
+				"*.obj",
+				"*.out",
+				"*.pch",
+				"*.slo",
+				"*.smod",
+				"*.so",
+				"*.sublime-workspace"
+			],
+			"folder_exclude_patterns":
+			[
+				"__pycache__",
+				"venv"
+			],
+			"path": ".",
+		}
+	]
+}
