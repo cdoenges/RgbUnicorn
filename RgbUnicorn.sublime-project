@@ -30,7 +30,10 @@
 				"__pycache__",
 				"venv"
 			],
-			"path": ".",
+			"path": "."
+		},
+		{
+			"path": "~/Documents/Sources/Arduino/libraries"
 		}
 	]
 }
