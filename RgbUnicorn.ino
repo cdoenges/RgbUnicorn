@@ -6,6 +6,17 @@ constexpr int NUM_LEDS = 30;
 constexpr int BRIGHTNESS = 48;
 
 // The color sequence that we'll be animating.
+constexpr uint8_t hues[NUM_COLORS] = {
+    HUE_RED,
+    HUE_ORANGE,
+    HUE_YELLOW,
+    HUE_GREEN,
+    HUE_AQUA,
+    HUE_BLUE,
+    HUE_PURPLE,
+    HUE_PINK,
+};
+
 const CRGB colors[NUM_COLORS] = {
     CHSV(HUE_RED, 255, BRIGHTNESS),
     CHSV(HUE_ORANGE, 255, BRIGHTNESS),
@@ -17,6 +28,16 @@ const CRGB colors[NUM_COLORS] = {
     CHSV(HUE_PINK, 255, BRIGHTNESS),
 };
 CRGBArray<NUM_LEDS> leds;
+
+
+static int random_in_range(const int low=0, const int high=100) {
+    const int delta = high - low;
+    const int r = rand();
+    int value;
+
+    value = r / (RAND_MAX / delta) + low;
+    return value;
+} // random_in_range()
 
 
 void setup() {
@@ -35,12 +56,12 @@ void loop() {
             } else if (dot >= dot_offset + NUM_COLORS) {
                 color = CRGB::Black;
             } else {
-                color = colors[dot - dot_offset];
+                color = CHSV(hues[dot - dot_offset], 255, BRIGHTNESS + dot_offset);
             }
             leds[dot] = color;
         } // for dot
         FastLED.show();
-        delay(100);
+        delay(random_in_range(75, 200));
     } // for dot_offset
 
     // Now the colors fall back down.
@@ -57,14 +78,15 @@ void loop() {
             leds[dot] = color;
         } // for dot
         FastLED.show();
-        delay(10);
+        delay(random_in_range(5, 25));
     } // for dot_offset
 
     // All off.
-    memset(leds, 0, sizeof(leds));
-//    for (int dot = 0;dot < NUM_LEDS;dot ++) {
-//        leds[dot] = CRGB::Black;
-//    } // for dot
-    FastLED.show();
-    delay(500);
+    for (int i = 16;i > 0;i --) {
+        leds.fadeToBlackBy(16);
+        FastLED.show();
+        delay(random_in_range(10, 20));
+    }
+
+    delay(random_in_range(500, 2500));
 } // loop()
