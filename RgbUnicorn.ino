@@ -17,7 +17,7 @@ constexpr uint8_t hues[NUM_COLORS] = {
     HUE_PINK,
 };
 
-const CRGB colors[NUM_COLORS] = {
+const CRGB colors[NUM_COLORS + 1] = {
     CHSV(HUE_RED, 255, BRIGHTNESS),
     CHSV(HUE_ORANGE, 255, BRIGHTNESS),
     CHSV(HUE_YELLOW, 255, BRIGHTNESS),
@@ -26,6 +26,7 @@ const CRGB colors[NUM_COLORS] = {
     CHSV(HUE_BLUE, 255, BRIGHTNESS),
     CHSV(HUE_PURPLE, 255, BRIGHTNESS),
     CHSV(HUE_PINK, 255, BRIGHTNESS),
+    CHSV(0, 0, 0),  // Black
 };
 CRGBArray<NUM_LEDS> leds;
 
@@ -90,6 +91,20 @@ static void fade_off(void) {
 } // fade_off()
 
 
+static void sparkle(void) {
+    for (int i = 0;i < 1000;i ++) {
+        int led_index = random_in_range(NUM_LEDS - 8, NUM_LEDS);
+        CRGB color = CHSV(random_in_range(0, 255),
+                          random_in_range(128, 255),
+                          random_in_range(BRIGHTNESS - 16, BRIGHTNESS + 16));
+
+        leds[led_index] = color;
+        FastLED.show();
+        delay(5);
+    } // for i
+} // sparkle()
+
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -99,6 +114,8 @@ void setup() {
 void loop() {
     // put your main code here, to run repeatedly:
     run_up();
+
+    sparkle();
 
     fall_down();
 
